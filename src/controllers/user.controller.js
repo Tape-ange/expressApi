@@ -53,4 +53,21 @@ module.exports = function(app){
    
     });
 
+    app.put('/user/:id', async function(req, res){
+      try {
+        const id = req.params.id;
+        const bo = req.body ;
+        console.log("findByIdAndUpdate bo", bo);
+        const data = await userModel.findByIdAndUpdate({_id : id },bo );
+        console.log("findByIdAndUpdate", data);
+        return res.status(200).json({msg: 'modification reussi'})
+  
+      } catch (e){
+        console.log(e.message);
+        return res.status(404).json({ msg: e.message})
+      }
+   
+    });
+
+
 };
