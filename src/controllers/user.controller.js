@@ -39,8 +39,18 @@ module.exports = function(app){
       }
     });
 
-    app.delete('/user', function(req, res){
-
+    app.delete('/user/:id', async function(req, res){
+      try {
+        const id = req.params.id;
+        const data = await userModel.deleteOne({_id : id});
+        console.log("delete by id", data);
+        return res.status(200).json({msg: 'supression reussi'})
+  
+      } catch (e){
+        console.log(e.message);
+        return res.status(404).json({ msg: e.message})
+      }
+   
     });
 
 };
